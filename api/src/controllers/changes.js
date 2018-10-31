@@ -196,7 +196,8 @@ const getChanges = feed => {
     since: feed.req.query && feed.req.query.since || 0,
     // PouchDB batches requests using this value as a limit and keeps issuing requests until the result
     // set length is lower than the limit.
-    batch_size: MAX_DOC_IDS + 1
+    batch_size: MAX_DOC_IDS + 1,
+    return_docs: false,
   };
   _.extend(options, _.pick(feed.req.query, 'style', 'conflicts', 'seq_interval'));
 
@@ -353,6 +354,7 @@ const initContinuousFeed = since => {
     .changes({
       live: true,
       include_docs: true,
+      return_docs: false,
       since: since || 'now',
       timeout: false,
     })

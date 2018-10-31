@@ -133,7 +133,7 @@ module.exports = {
     return loadSettings();
   },
   listen: () => {
-    db.medic.changes({ live: true, since: 'now' })
+    db.medic.changes({ live: true, since: 'now', return_docs: false })
       .on('change', change => {
         if (change.id === '_design/medic') {
           console.log('Detected ddoc change - reloading');
