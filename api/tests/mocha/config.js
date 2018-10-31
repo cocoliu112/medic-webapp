@@ -89,7 +89,7 @@ describe('Config', () => {
     it('initializes the Continuous changes feed', () => {
       config.listen();
       chai.expect(db.medic.changes.callCount).to.equal(1);
-      chai.expect(db.medic.changes.args[0]).to.deep.equal([{ live: true, since: 'now' }]);
+      chai.expect(db.medic.changes.args[0]).to.deep.equal([{ live: true, since: 'now', return_docs: false }]);
     });
 
     it('does nothing for irrelevant change', () => {

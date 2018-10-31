@@ -135,6 +135,7 @@ describe('Changes controller', () => {
           include_docs: true,
           since: 'now',
           timeout: false,
+          return_docs: false,
         });
         controller._inited().should.equal(true);
         controller._getContinuousFeed().should.equal(emitters[0]);
@@ -334,13 +335,14 @@ describe('Changes controller', () => {
           changesSpy.args[1][0].should.deep.equal({
             since: 0,
             batch_size: 41,
-            doc_ids: ['d1', 'd2', 'd3']
+            doc_ids: ['d1', 'd2', 'd3'],
+            return_docs: false,
           });
         });
     });
 
     it('requests changes with correct query parameters', () => {
-      testReq.query = { limit: 20, view: 'test', something: 'else', conflicts: true, seq_interval: false, since: '22'};
+      testReq.query = { limit: 20, view: 'test', something: 'else', conflicts: true, seq_interval: false, since: '22', return_docs: false };
       dbConfig.get.resolves(40);
       authorization.getAllowedDocIds.resolves(['d1', 'd2', 'd3']);
       return controller
@@ -1343,7 +1345,8 @@ describe('Changes controller', () => {
           changesSpy.args[1][0].should.deep.equal({
             batch_size: 3,
             doc_ids: ['a', 'b'],
-            since: 'seq'
+            since: 'seq',
+            return_docs: false,
           });
           controller._getNormalFeeds().forEach(feed => {
             feed.upstreamRequests.forEach(upstreamReq => {
