@@ -197,7 +197,7 @@ const getChanges = feed => {
     // PouchDB batches requests using this value as a limit and keeps issuing requests until the result
     // set length is lower than the limit.
     batch_size: MAX_DOC_IDS + 1,
-    return_docs: false,
+    return_docs: true,
   };
   _.extend(options, _.pick(feed.req.query, 'style', 'conflicts', 'seq_interval'));
 

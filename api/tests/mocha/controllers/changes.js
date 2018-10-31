@@ -336,7 +336,7 @@ describe('Changes controller', () => {
             since: 0,
             batch_size: 41,
             doc_ids: ['d1', 'd2', 'd3'],
-            return_docs: false,
+            return_docs: true,
           });
         });
     });
@@ -356,7 +356,7 @@ describe('Changes controller', () => {
             doc_ids: ['d1', 'd2', 'd3'],
             conflicts: true,
             seq_interval: false,
-            return_docs: false,
+            return_docs: true,
           });
           const feed = controller._getNormalFeeds()[0];
           feed.upstreamRequests.length.should.equal(1);
@@ -1347,7 +1347,7 @@ describe('Changes controller', () => {
             batch_size: 3,
             doc_ids: ['a', 'b'],
             since: 'seq',
-            return_docs: false,
+            return_docs: true,
           });
           controller._getNormalFeeds().forEach(feed => {
             feed.upstreamRequests.forEach(upstreamReq => {
@@ -1389,13 +1389,13 @@ describe('Changes controller', () => {
             batch_size: 3,
             doc_ids: ['a', 'b'],
             since: 'seq',
-            return_docs: false,
+            return_docs: true,
           });
           changesSpy.args[3][0].should.deep.equal({
             batch_size: 3,
             doc_ids: ['c', 'd'],
             since: 'seq',
-            return_docs: false,
+            return_docs: true,
           });
 
           controller._getLongpollFeeds().length.should.equal(0);
