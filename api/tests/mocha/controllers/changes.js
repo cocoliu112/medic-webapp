@@ -355,7 +355,8 @@ describe('Changes controller', () => {
             batch_size: 41,
             doc_ids: ['d1', 'd2', 'd3'],
             conflicts: true,
-            seq_interval: false
+            seq_interval: false,
+            return_docs: false,
           });
           const feed = controller._getNormalFeeds()[0];
           feed.upstreamRequests.length.should.equal(1);
@@ -1387,12 +1388,14 @@ describe('Changes controller', () => {
           changesSpy.args[2][0].should.deep.equal({
             batch_size: 3,
             doc_ids: ['a', 'b'],
-            since: 'seq'
+            since: 'seq',
+            return_docs: false,
           });
           changesSpy.args[3][0].should.deep.equal({
             batch_size: 3,
             doc_ids: ['c', 'd'],
-            since: 'seq'
+            since: 'seq',
+            return_docs: false,
           });
 
           controller._getLongpollFeeds().length.should.equal(0);
